@@ -27,6 +27,6 @@ set(PROJECT_SOURCES
 add_executable(test_antlib  ${PROJECT_SOURCES} )
 target_link_libraries(test_antlib PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
-    ant
+    antlib
 )
 
