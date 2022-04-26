@@ -18,19 +18,10 @@ void PoligonData::update()
 }
 
 
-void PoligonData::setPoligon(const QList<qreal> &newArr)
+void PoligonData::setPoligon(const QString &newArr)
 {
-  m_avgValue = 0.;
-  for(const auto& v: newArr)
-    m_avgValue += v;
-  m_avgValue /= newArr.size();
-
   m_poligon.clear();
   m_poligon.reserve(newArr.size());
-  for(const auto& v: newArr)
-    m_poligon.push_back( v - m_avgValue );
-
-  Q_EMIT avgValueChanged();
   Q_EMIT poligonChanged();
   setImageUrl( renewUrl() );
 }

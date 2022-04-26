@@ -8,7 +8,7 @@
 
 void PoligonRenderControl::initializeEngine(QQmlEngine *engine, const char *uri, QObject *parent){
 
-  qmlRegisterType<PoligonData>(uri, 1, 0, "SeismicPoligonData");
+  qmlRegisterType<PoligonData>(uri, 1, 0, "APoligonData");
   using Model = QObjectVectorModel<PoligonData>;
   auto model = new Model(parent);
   for (size_t i=0; i<poligons.size(); ++i) {

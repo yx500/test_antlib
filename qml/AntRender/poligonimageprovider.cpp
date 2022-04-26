@@ -17,7 +17,7 @@ PoligonImageProvider::PoligonImageProvider(PoligonData* d)
 
 static void drawPoligon (
     QImage &image,
-    const QList<qreal> &poligon,
+    const QString &poligon,
     int poligonWidth,
     int firstSampleToDraw,
     double scaleX, double scaleTime );
@@ -78,7 +78,7 @@ QPixmap PoligonImageProvider::requestPixmap(const QString &/*id*/, QSize *size, 
 
 static void drawPoligon (
     QImage &image,// int image[], int imageHeight, int imageWidth,
-    const QList<qreal> &poligon, //double  poligon[], int poligonLength,
+    const QString &poligon, //double  poligon[], int poligonLength,
     int poligonWidth,
     int firstSampleToDraw,
     double scaleX, double scaleTime)
@@ -90,67 +90,5 @@ static void drawPoligon (
 
   // as first step before all poligon drawing, need to reset whole image to white color;
   const QRgb BLACK_COLOR = qRgb(189, 149, 39);
-  //  scaleX = scaleX*poligonWidth*0.05;
-  if (scaleTime <= 1) {
-    double currentSample = firstSampleToDraw;
-    int oldValue = 0;
-    for (int i = 0; i < imageHeight; i ++) {
-      int value = 0;
-      if (currentSample < poligonLength-1) {
-        int x = (int)currentSample;
-        double v1 = poligon [x];
-        double v2 = poligon [x+1];
-        value = (int) (scaleX * (v1+(v2-v1)*(currentSample-x)));
-      }
-      value = std::min (value, poligonWidth);
-      value = std::max (value, -poligonWidth);
 
-      QRgb* line = (QRgb *)image.scanLine(i);
-      if (value >= 0) {
-        int minV = std::min(0, oldValue);
-        for (int j = poligonXcoord + minV; j <= poligonXcoord + value; j++) {
-          //>          image[i*imageWidth+j] = BLACK_COLOR;
-          Q_ASSERT( j < image.width() );
-          if ( j < image.width() )
-            line[j]=BLACK_COLOR;
-        }
-      } else {
-        int minV = std::min(value, oldValue);
-        int maxV = std::max(value, oldValue);
-        for (int j = poligonXcoord+minV; j <= poligonXcoord + maxV; j++) {
-          //>          image[i*imageWidth+j] = BLACK_COLOR;
-          Q_ASSERT( j < image.width() );
-          if ( j < image.width() )
-            line[j]=BLACK_COLOR;
-        }
-      }
-      oldValue = value;
-      currentSample += scaleTime;
-    }
-  } else {
-    double currentPixel = 0;
-    double deltaPixel = 1/scaleTime;
-    int oldValue = 0;
-    for (int i = firstSampleToDraw; i < poligonLength; i++) {
-      if (currentPixel >= imageHeight) {
-        break;
-      }
-      int poligonValue = (int) (poligon[i]*scaleX);
-      poligonValue = std::min(poligonValue, poligonWidth);
-      poligonValue = std::max(poligonValue, -poligonWidth);
-
-      int minV = std::min(poligonValue, oldValue);
-      minV=std::min(0, minV);
-      int maxV = std::max(poligonValue, oldValue);
-      QRgb* line = (QRgb *)image.scanLine((int)currentPixel);
-      for (int j = poligonXcoord+minV; j <= poligonXcoord + maxV; j++) {
-        //>        image[(int)currentPixel*imageWidth+j] = BLACK_COLOR;
-        Q_ASSERT( j < image.width() );
-        if ( j < image.width() )
-          line[j]=BLACK_COLOR;
-      }
-      oldValue = poligonValue;
-      currentPixel += deltaPixel;
-    }
-  }
 }
