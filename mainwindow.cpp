@@ -40,14 +40,9 @@ MainWindow::MainWindow(QWidget *parent)
     painter.drawRect(0,0,1280,1024);
 
 
-    String s1="123рст";
-    QString qs1="123рсту";
-    int i=qs1.indexOf("у");
-    auto s2=s1.c_str();
-    String s3=s2;
-
     Station *stan=new Station("");
-    QString fn="d:/__E/EXE/WinDnc/sta/holoni.ste";
+//    QString fn="d:/__E/EXE/WinDnc/sta/holoni.ste";
+    QString fn="sta/holoni.ste";
 
     stan->Open(fn.toStdString().c_str());
     CurrentPicture=LT;
