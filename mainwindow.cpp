@@ -39,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent)
     painter.drawRect(0,0,1280,1024);
 
 
-    Station *stan=new Station("");
+    Station *stan=new Station("sta/holoni.ste");
 //    QString fn="d:/__E/EXE/WinDnc/sta/holoni.ste";
     QString fn="sta/holoni.ste";
 

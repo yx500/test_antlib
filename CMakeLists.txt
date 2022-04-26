@@ -30,3 +30,7 @@ target_link_libraries(test_antlib PRIVATE
     antlib
 )
 
+if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+        find_package(Qt6 REQUIRED COMPONENTS Core5Compat)
+        target_link_libraries(test_antlib PRIVATE Qt6::Core5Compat)
+endif()
