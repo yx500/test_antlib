@@ -42,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     Station *stan=new Station("");
 //    QString fn="d:/__E/EXE/WinDnc/sta/holoni.ste";
-    QString fn="sta/holoni.ste";
+    QString fn="ste/sta/holoni.ste";
 
     stan->Open(fn.toStdString().c_str());
     CurrentPicture=LT;

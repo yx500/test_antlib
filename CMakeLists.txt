@@ -33,4 +33,27 @@ target_link_libraries(test_antlib PRIVATE
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         find_package(Qt6 REQUIRED COMPONENTS Core5Compat)
         target_link_libraries(test_antlib PUBLIC Qt6::Core5Compat)
+
+
+
+        find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick)
+        qt_add_executable(pie
+            piemain.cpp
+            pie.cpp pie.h
+            antrender.cpp antrender.h
+        )
+        target_link_libraries(pie PUBLIC
+            Qt::Core
+            Qt::Gui
+            Qt::Qml
+            Qt::Quick
+            antlib
+        )
+        qt_add_qml_module(pie
+            URI Pie
+            VERSION 1.0
+            QML_FILES pieapp.qml
+            NO_RESOURCE_TARGET_PATH
+        )
+
 endif()
