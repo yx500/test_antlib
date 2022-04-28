@@ -13,9 +13,9 @@ Item {
 
     Text {
         anchors {
-            bottom: parent.bottom;
-            horizontalCenter: parent.horizontalCenter;
-            bottomMargin: 20
+            top: parent.top
+            topMargin: 20
+            horizontalCenter: parent.horizontalCenter
         }
         text: aPieChart.name
     }

@@ -7,9 +7,10 @@
 
 void AntRender::rend(QPainter *painter, const QRectF& boundingRect )
 {
+  painter->setRenderHints(QPainter::Antialiasing, true);
+
   QPen pen(Qt::green, 2);
   painter->setPen(pen);
-  painter->setRenderHints(QPainter::Antialiasing, true);
   painter->drawPie(boundingRect, 90 * 16, 290 * 16);
 
   //
@@ -19,10 +20,12 @@ void AntRender::rend(QPainter *painter, const QRectF& boundingRect )
 
   stan->Open(fn.toStdString().c_str());
   CurrentPicture=LT;
-  MOD=ED;
+//  MOD=ED;
   setAntLibPainter(painter);
   stan->Clear();
   stan->Go();
+//  stan->Show();
+  return;
   for (int i = 1; i < Units_Size; i++) {
     for (int j = 0; j < stan->POLE[i]->GetArraySize(); j++){
       auto ac=stan->POLE[i]->GetObjPtr(j);
