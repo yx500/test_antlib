@@ -3,6 +3,7 @@
 #include "winbgi_qt.h"
 #include "Stan.h"
 #include "ACom_V.h"
+#include "atools.h"
 
 
 void AntRender::rend(QPainter *painter, const QRectF& boundingRect )
@@ -13,7 +14,7 @@ void AntRender::rend(QPainter *painter, const QRectF& boundingRect )
   painter->setPen(pen);
   painter->drawPie(boundingRect, 90 * 16, 290 * 16);
 
-  //
+  antlib::utils::ProfilerTimer t(__FUNCTION__);
 
   Station *stan=new Station("");
   QString fn="ste/sta/holoni.ste";
