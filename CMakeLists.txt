@@ -47,7 +47,10 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
             URI Pie
             VERSION 1.0
             QML_FILES pieapp.qml
-            SOURCES pie.cpp pie.h antrender.cpp antrender.h
+            SOURCES
+                pie.cpp pie.h
+                antrender.cpp antrender.h
+                poligons.cpp poligons.h
             NO_RESOURCE_TARGET_PATH
         )
 
