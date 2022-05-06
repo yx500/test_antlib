@@ -1,70 +1,58 @@
 #pragma once
 
-#include <string>
-#include <vector>
 #include "Polig.h"
 #include "Stan.h"
 
+#include <string>
+#include <string_view>
+#include <vector>
+#include <filesystem>
 
+namespace fs = std::filesystem;
 
-
-using  TName = std::string;
-using  TPath = std::string;
 
 //---------------------------------------------------------------------------
-class TSmartPoligons;
-
-
-
-
 class TSmartPoligon : public Poligon
 {
-  friend class TSmartPoligons;
-  TSmartPoligons *Poligons;
+  fs::path ych;
+  bool _is_open = false;
 
 public:
-  int CurrentStation;
-  int CurrentPicture;
+  int CurrentStation=0;
+  int CurrentPicture=BG;
 
   //    dtg::set_of_keys dtg_def;
-  std::string      key_id;
-  std::string      sta_id();
+  std::string  current_sta_id();
+  const fs::path& path() { return ych; }
+  std::string key() { return ych.filename(); }
 
-  TSmartPoligon();
+  TSmartPoligon(const fs::path& ych);
 
-  int Open(const char* i);
+  bool Open();
   void Close();
+  bool is_open() {return _is_open; }
 
-  void DrawBgiOn(void* Canvas, int x);
-  const char* GetCanalNames();
+  void DrawBgiOn(void*, int x);
 };
 
 //---------------------------------------------------------------------------
 class TSmartPoligons
 {
-  friend class TSmartPoligon;
+  std::map< std::string, TSmartPoligon > ychs;
+  fs::path  path;
 
-  std::vector<TSmartPoligon*> YCHS;
-
-  int _open_ych_dir(const char* ini);
-
-  std::string  IniName;
-  std::vector<std::string> FNames;
-  std::vector<std::string> FFiles;
+  void _open_ych_dir(const fs::path& dir);
 
 public:
-  TSmartPoligons() { Close(); }
+  TSmartPoligons() {}
   virtual ~TSmartPoligons() { Close(); }
 
-  int Open(const char* i);
-  int Open_v2(const char* i);
+  int Open(const fs::path& dir);
   void Close();
 
-  int  size() { return FFiles.size(); }
-  TSmartPoligon* Item(int y);
-
-  const std::string& Name(int i){ return FNames.at(i); }
-  const std::string& File(int i){ return FFiles.at(i); }
+  int  size() { return ychs.size(); }
+  alib::string_list  keys();
+  TSmartPoligon* Item(const std::string& key);
 };
 
 
