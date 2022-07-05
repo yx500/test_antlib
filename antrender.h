@@ -7,6 +7,6 @@ class AntRender
 public:
 
   static QString name;
-  static void rend(QPainter *painter, const QRectF& boundingRect);
+  static void rend(const QString &path, QPainter *painter, const QRectF& boundingRect);
 };
 

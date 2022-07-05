@@ -6,7 +6,7 @@
 #include "atools.h"
 
 
-void AntRender::rend(QPainter *painter, const QRectF& boundingRect )
+void AntRender::rend(const QString &path, QPainter *painter, const QRectF& boundingRect )
 {
   painter->setRenderHints(QPainter::Antialiasing, true);
 
@@ -16,17 +16,15 @@ void AntRender::rend(QPainter *painter, const QRectF& boundingRect )
 
 
   Station *stan=new Station("");
-  QString fn="ste/sta/holoni.ste";
-
-  stan->Open(fn.toStdString().c_str());
+  stan->Open(path.toStdString().c_str());
   CurrentPicture=LT;
   MOD=ED;
 
-  alib::tools::ProfilerTimer t(__FUNCTION__);
+  alib::tools::ProfilerTimer t(__PRETTY_FUNCTION__);
   setAntLibPainter(painter);
   stan->Clear();
-  stan->Go();
-//  stan->Show();
+//  stan->Go();
+  stan->Show();
   return;
 
   for (int i = 1; i < Units_Size; i++) {
